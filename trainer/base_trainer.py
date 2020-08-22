@@ -122,6 +122,9 @@ class Trainer(object):
         pred_verts = self.model(
             torch.cat((thetas, betas, gammas), dim=1)).view(gt_verts.shape)
 
+        # self.write_obj_file("../temp/objs/garment_pred.obj", pred_verts[0], self.garment_f_np)
+        # self.write_obj_file("../temp/objs/garment_gt.obj", gt_verts[0], self.garment_f_np)
+
         # L1 loss
         data_loss = (pred_verts - gt_verts).abs().sum(-1).mean()
         return pred_verts, data_loss
@@ -223,6 +226,18 @@ class Trainer(object):
             os.makedirs(save_dir)
         torch.save(self.model.state_dict(), os.path.join(save_dir, 'lin.pth.tar'))
         torch.save(self.optimizer.state_dict(), os.path.join(save_dir, "optimizer.pth.tar"))
+
+    def write_obj_file(self, file_path, vertices, faces):
+        ## Write to an .obj file
+        if not os.path.exists(os.path.dirname(file_path)):
+                os.makedirs(os.path.dirname(file_path))
+
+        with open(file_path, 'w') as fp:
+            for v in vertices:
+                fp.write('v %f %f %f\n' % (v[0], v[1], v[2]))
+
+            for f in faces + 1:  # Faces are 1-based, not 0-based in obj files
+                fp.write('f %d %d %d\n' % (f[0], f[1], f[2]))
 
 
 class Runner(object):

@@ -29,8 +29,9 @@ CVPR 2020 (ORAL)
 python3  
 pytorch  
 scipy  
-[chumpy](https://github.com/mattloper/chumpy)  
-[psbody.mesh](https://github.com/MPI-IS/mesh)
+tensorboardX - Install with pip (not available in conda)
+[chumpy](https://github.com/mattloper/chumpy) - Install with pip (not available in conda)
+[psbody.mesh](https://github.com/MPI-IS/mesh) - You have to clone it into the root directory of this project, and follow the build instructions
 
 ## How to Run
 - Download and prepare SMPL model and TailorNet data from [dataset repository](https://github.com/zycliao/TailorNet_dataset).
